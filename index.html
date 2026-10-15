@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="tr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f7f8f5">
+	<meta name="description" content="W E N T A Gun RP — PvP, takım oyunu ve optimize edilmiş FiveM deneyimi.">
+	<title>W E N T A — Gun RP</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f7f8f5;
+			--ink: #222823;
+			--muted: #778079;
+			--green: #527e64;
+			--green-dark: #315540;
+			--line: #e5e9e2;
+			--white: #fff;
+			--font-body: "DM Sans", sans-serif;
+			--font-display: "Manrope", sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			min-width: 320px;
+			min-height: 100vh;
+			color: var(--ink);
+			background:
+				radial-gradient(ellipse at 50% 30%, rgba(227, 235, 223, .52), transparent 46%),
+				var(--paper);
+			font-family: var(--font-body);
+		}
+		button, input { font: inherit; }
+		button, a { -webkit-tap-highlight-color: transparent; }
+		a { color: inherit; text-decoration: none; }
+
+		.topbar {
+			height: 76px;
+			padding: 0 clamp(20px, 5vw, 72px);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid rgba(225, 230, 222, .72);
+		}
+		.mini-brand {
+			display: flex;
+			align-items: center;
+			gap: 11px;
+			color: var(--green-dark);
+			font: 800 15px var(--font-display);
+			letter-spacing: 5px;
+			white-space: nowrap;
+		}
+		.mini-brand img { width: 36px; height: 36px; object-fit: cover; border: 1px solid #d9e2d8; border-radius: 50%; }
+		.nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+		.nav-links a {
+			color: #5e675f;
+			font-size: 13px;
+			transition: color .2s ease;
+		}
+		.nav-links a:hover { color: var(--green-dark); }
+		.nav-links .join-link {
+			padding: 10px 16px;
+			color: var(--white);
+			background: var(--green-dark);
+			border-radius: 999px;
+			font-weight: 600;
+		}
+
+		main { width: min(100% - 40px, 1000px); margin: 0 auto; }
+		.hero {
+			min-height: 535px;
+			padding: 82px 0 48px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			animation: arrive .65s ease both;
+		}
+		.wordmark {
+			margin: 0 0 22px;
+			color: var(--green-dark);
+			font: 800 clamp(44px, 8vw, 68px)/1 var(--font-display);
+			letter-spacing: 13px;
+			padding-left: 13px;
+		}
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 9px;
+			color: #69766a;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+		}
+		.eyebrow::before, .eyebrow::after {
+			width: 20px;
+			height: 1px;
+			content: "";
+			background: #a9b7a8;
+		}
+		h1 {
+			max-width: 680px;
+			margin: 19px 0 12px;
+			font: 600 clamp(28px, 5vw, 43px)/1.18 var(--font-display);
+			letter-spacing: 0;
+		}
+		.intro {
+			max-width: 490px;
+			margin: 0;
+			color: var(--muted);
+			font-size: 15px;
+			line-height: 1.7;
+		}
+		.search-wrap {
+			width: min(100%, 590px);
+			height: 54px;
+			margin: 30px 0 17px;
+			padding: 0 7px 0 18px;
+			display: flex;
+			align-items: center;
+			gap: 11px;
+			background: var(--white);
+			border: 1px solid #e4e8e1;
+			border-radius: 999px;
+			box-shadow: 0 7px 24px rgba(55, 75, 56, .07);
+			transition: box-shadow .2s ease, border-color .2s ease;
+		}
+		.search-wrap:focus-within {
+			border-color: #a8bea9;
+			box-shadow: 0 8px 28px rgba(55, 75, 56, .12);
+		}
+		.search-icon { width: 18px; height: 18px; color: #8b958d; flex: 0 0 auto; }
+		.search-wrap input {
+			width: 100%;
+			min-width: 0;
+			height: 100%;
+			padding: 0;
+			color: var(--ink);
+			background: transparent;
+			border: 0;
+			outline: 0;
+			font-size: 14px;
+		}
+		.search-wrap input::placeholder { color: #9aa29b; }
+		.search-wrap button {
+			height: 40px;
+			padding: 0 17px;
+			color: white;
+			background: var(--green-dark);
+			border: 0;
+			border-radius: 999px;
+			cursor: pointer;
+			font-size: 12px;
+			font-weight: 700;
+			transition: background .2s ease, transform .2s ease;
+		}
+		.search-wrap button:hover { background: #426c51; transform: translateY(-1px); }
+		.quick-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+		.quick-links button {
+			padding: 8px 13px;
+			color: #69736b;
+			background: rgba(255, 255, 255, .48);
+			border: 1px solid #e1e7de;
+			border-radius: 999px;
+			cursor: pointer;
+			font-size: 12px;
+			transition: color .2s ease, border-color .2s ease, background .2s ease;
+		}
+		.quick-links button:hover { color: var(--green-dark); background: white; border-color: #b8c9b9; }
+
+		.discover {
+			padding: 0 0 72px;
+			animation: arrive .7s .12s ease both;
+		}
+		.section-heading {
+			margin: 0 0 17px;
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+		}
+		.section-heading h2 { margin: 0; font: 700 15px var(--font-display); }
+		.section-heading span { color: #8a938b; font-size: 12px; }
+		.feature {
+			position: relative;
+			min-height: 220px;
+			overflow: hidden;
+			display: flex;
+			align-items: flex-end;
+			border-radius: 8px;
+			background: #46554c url("https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1800&q=85") center 53% / cover no-repeat;
+			isolation: isolate;
+		}
+		.feature::after {
+			position: absolute;
+			z-index: -1;
+			inset: 0;
+			content: "";
+			background: linear-gradient(90deg, rgba(18, 29, 23, .76), rgba(18, 29, 23, .12) 88%), linear-gradient(0deg, rgba(18, 29, 23, .35), transparent 62%);
+		}
+		.feature-copy { max-width: 550px; padding: 29px 34px 31px; color: white; }
+		.feature-copy .label { color: #d4e4d3; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+		.feature-copy h2 { margin: 9px 0 7px; font: 700 clamp(22px, 4vw, 30px) var(--font-display); }
+		.feature-copy p { max-width: 420px; margin: 0; color: rgba(255, 255, 255, .82); font-size: 13px; line-height: 1.6; }
+
+		.link-grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			margin-top: 15px;
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+		.info-link {
+			min-height: 104px;
+			padding: 20px 19px;
+			display: flex;
+			align-items: flex-start;
+			gap: 13px;
+			background: transparent;
+			border: 0;
+			border-right: 1px solid var(--line);
+			cursor: pointer;
+			text-align: left;
+			transition: background .2s ease;
+		}
+		.info-link:last-child { border-right: 0; }
+		.info-link:hover { background: rgba(255, 255, 255, .6); }
+		.info-icon {
+			width: 34px;
+			height: 34px;
+			flex: 0 0 34px;
+			display: grid;
+			place-items: center;
+			color: var(--green-dark);
+			background: #eaf0e8;
+			border-radius: 50%;
+		}
+		.info-icon svg { width: 17px; height: 17px; }
+		.info-link strong { display: block; margin: 1px 0 5px; font: 700 13px var(--font-display); }
+		.info-link small { display: block; color: #818a82; font-size: 11px; line-height: 1.5; }
+		.empty-state { display: none; padding: 23px; color: var(--muted); text-align: center; font-size: 13px; }
+		.content-section { padding: 78px 0; border-top: 1px solid var(--line); }
+		.content-heading { max-width: 650px; margin-bottom: 32px; }
+		.content-heading .eyebrow { color: var(--green); }
+		.content-heading h2 { margin: 13px 0 10px; font: 700 clamp(26px, 4vw, 36px)/1.2 var(--font-display); }
+		.content-heading p { max-width: 540px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+		.playstyles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+		.playstyle { min-height: 185px; padding: 23px 23px 25px 0; }
+		.playstyle + .playstyle { padding-left: 23px; border-left: 1px solid var(--line); }
+		.playstyle .number { color: #90a18f; font: 600 12px var(--font-display); }
+		.playstyle h3 { margin: 26px 0 8px; font: 700 16px var(--font-display); }
+		.playstyle p { max-width: 250px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+		.steps-section { padding: 60px clamp(22px, 5vw, 54px); display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; background: #edf1e9; border-radius: 8px; }
+		.steps-section .content-heading { margin: 0; }
+		.steps-list { margin: 0; padding: 0; list-style: none; }
+		.steps-list li { padding: 15px 0; display: grid; grid-template-columns: 38px 1fr; gap: 13px; border-bottom: 1px solid #d9e1d6; }
+		.steps-list li:first-child { padding-top: 0; }
+		.steps-list li:last-child { border-bottom: 0; }
+		.step-number { color: var(--green); font: 700 12px var(--font-display); }
+		.steps-list strong { display: block; margin-bottom: 4px; font: 700 13px var(--font-display); }
+		.steps-list span:last-child { color: #737e74; font-size: 12px; line-height: 1.65; }
+		.faq-list { border-top: 1px solid var(--line); }
+		.faq-list details { border-bottom: 1px solid var(--line); }
+		.faq-list summary { padding: 19px 3px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font: 600 14px var(--font-display); list-style: none; }
+		.faq-list summary::-webkit-details-marker { display: none; }
+		.faq-list summary::after { content: "+"; color: var(--green); font: 400 22px var(--font-body); }
+		.faq-list details[open] summary::after { content: "−"; }
+		.faq-list details p { max-width: 690px; margin: -4px 0 20px; color: var(--muted); font-size: 13px; line-height: 1.75; }
+		.bottom-cta { margin: 0 0 78px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--line); border-radius: 8px; }
+		.bottom-cta h2 { margin: 0 0 5px; font: 700 18px var(--font-display); }
+		.bottom-cta p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+		.bottom-cta a { padding: 11px 16px; color: white; background: var(--green-dark); border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+		.system-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+		.system-card { min-height: 175px; padding: 22px; background: rgba(255, 255, 255, .58); border: 1px solid var(--line); border-radius: 8px; }
+		.system-card .system-tag { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
+		.system-card h3 { margin: 24px 0 8px; font: 700 15px var(--font-display); }
+		.system-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+		footer {
+			min-height: 62px;
+			padding: 16px clamp(20px, 5vw, 72px);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 14px;
+			color: #8a938b;
+			border-top: 1px solid rgba(225, 230, 222, .85);
+			font-size: 11px;
+		}
+		footer strong { color: #667267; font-weight: 600; }
+
+		.dialog-backdrop {
+			position: fixed;
+			z-index: 5;
+			inset: 0;
+			padding: 20px;
+			display: none;
+			place-items: center;
+			background: rgba(27, 37, 29, .38);
+			backdrop-filter: blur(4px);
+		}
+		.dialog-backdrop.open { display: grid; }
+		.dialog {
+			width: min(100%, 430px);
+			padding: 29px;
+			background: var(--paper);
+			border: 1px solid #e6ebe3;
+			border-radius: 12px;
+			box-shadow: 0 20px 65px rgba(26, 42, 29, .2);
+			animation: arrive .2s ease both;
+		}
+		.dialog-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+		.dialog h2 { margin: 0; font: 700 21px var(--font-display); }
+		.dialog p { margin: 12px 0 21px; color: #68736a; font-size: 14px; line-height: 1.75; white-space: pre-line; }
+		.close-dialog {
+			width: 32px;
+			height: 32px;
+			display: grid;
+			place-items: center;
+			color: #68736a;
+			background: #edf1eb;
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+			font-size: 19px;
+		}
+		.dialog-action {
+			padding: 10px 15px;
+			color: white;
+			background: var(--green-dark);
+			border: 0;
+			border-radius: 999px;
+			cursor: pointer;
+			font-size: 12px;
+			font-weight: 700;
+		}
+		.toast {
+			position: fixed;
+			z-index: 8;
+			right: 22px;
+			bottom: 22px;
+			max-width: calc(100vw - 44px);
+			padding: 12px 17px;
+			color: white;
+			background: #315540;
+			border-radius: 6px;
+			box-shadow: 0 8px 22px rgba(28, 53, 36, .18);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(8px);
+			transition: opacity .2s ease, transform .2s ease;
+			font-size: 12px;
+		}
+		.toast.show { opacity: 1; transform: translateY(0); }
+		@keyframes arrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+
+		@media (max-width: 640px) {
+			.topbar { height: 65px; }
+			.nav-links { gap: 13px; }
+			.nav-links a { font-size: 11px; }
+			.nav-links a:not(.join-link) { display: none; }
+			.nav-links .join-link { padding: 9px 12px; }
+			.hero { min-height: 500px; padding-top: 74px; }
+			.wordmark { letter-spacing: 9px; padding-left: 9px; }
+			.intro { max-width: 390px; font-size: 14px; }
+			.feature { min-height: 240px; }
+			.feature-copy { padding: 23px; }
+			.link-grid { grid-template-columns: 1fr; }
+			.info-link { min-height: 82px; padding: 16px 10px; border-right: 0; border-bottom: 1px solid var(--line); }
+			.info-link:last-child { border-bottom: 0; }
+			.content-section { padding: 58px 0; }
+			.content-heading { margin-bottom: 25px; }
+			.playstyles { grid-template-columns: 1fr; }
+			.system-grid { grid-template-columns: 1fr; }
+			.system-card { min-height: 0; }
+			.system-card h3 { margin-top: 14px; }
+			.playstyle { min-height: 0; padding: 19px 0; }
+			.playstyle + .playstyle { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+			.playstyle h3 { margin: 12px 0 6px; }
+			.steps-section { padding: 30px 22px; grid-template-columns: 1fr; gap: 28px; }
+			.bottom-cta { margin-bottom: 54px; padding: 23px; align-items: flex-start; flex-direction: column; }
+			footer { align-items: flex-start; flex-direction: column; gap: 6px; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<a class="mini-brand" href="#top" aria-label="W E N T A ana sayfa"><img src="https://i.ibb.co/kswK6MHZ/wenta.png" alt="W E N T A sunucu logosu">W E N T A</a>
+		<nav class="nav-links" aria-label="Ana menü">
+			<a href="#ozellikler">Özellikler</a>
+			<a href="#baslangic">Başlangıç</a>
+			<a href="#sss">SSS</a>
+			<a class="join-link" href="https://discord.gg/ZT8fQEBBg" target="_blank" rel="noopener noreferrer">Discord'a katıl</a>
+		</nav>
+	</header>
+
+	<main id="top">
+		<section class="hero" aria-labelledby="page-title">
+			<p class="wordmark" aria-label="W E N T A">W E N T A</p>
+			<span class="eyebrow">GUN RP · FIVEM</span>
+			<h1 id="page-title">Ekibini kur. Mücadeleye gir.</h1>
+			<p class="intro">W E N T A GUN RP'de hızlı PvP, takım oyunu ve akıcı performans seni bekliyor.</p>
+
+			<form class="search-wrap" id="search-form" role="search">
+				<svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+				<input id="site-search" type="search" placeholder="Kurallar, başlangıç, topluluk..." aria-label="Sitede ara">
+				<button type="submit">Ara</button>
+			</form>
+			<div class="quick-links" aria-label="Hızlı aramalar">
+				<button type="button" data-search="başlangıç">Oyuna nasıl katılırım?</button>
+				<button type="button" data-search="pvp">PvP kuralları</button>
+				<button type="button" data-search="discord">Discord</button>
+			</div>
+		</section>
+
+		<section class="discover" id="kesfet" aria-labelledby="discover-title">
+			<div class="section-heading">
+				<h2 id="discover-title">W E N T A dünyasını keşfet</h2>
+				<span>GUN RP · FiveM</span>
+			</div>
+			<article class="feature">
+				<div class="feature-copy">
+					<span class="label">TAKIMINI TOPLA · OYUNA GİR</span>
+					<h2>Rekabetin merkezi: W E N T A</h2>
+					<p>Ekibinle birlikte hareket et, reflekslerini göster ve PvP arenasında yerini al.</p>
+				</div>
+			</article>
+			<div class="link-grid" id="rehber">
+				<button class="info-link" type="button" data-dialog="start" data-keywords="başlangıç yeni oyuncu fivem giriş">
+					<span class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19.5V6.8A2.8 2.8 0 0 1 7.8 4H19v15.5H7.5A2.5 2.5 0 0 0 5 22V19.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 19.5A2.5 2.5 0 0 1 7.5 17H19" stroke="currentColor" stroke-width="1.6"/></svg></span>
+					<span><strong>Oyuna katıl</strong><small>FiveM ve sunucuya giriş adımlarını gör.</small></span>
+				</button>
+				<button class="info-link" type="button" data-dialog="rules" data-keywords="kurallar pvp oyun">
+					<span class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6v5.2c0 5-3.4 8.1-8 9.8-4.6-1.7-8-4.8-8-9.8V6l8-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+					<span><strong>PvP kuralları</strong><small>Adil ve rekabetçi oyun için temel kurallar.</small></span>
+				</button>
+				<button class="info-link" type="button" data-dialog="community" data-keywords="topluluk ekip discord iletişim">
+					<span class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19v-1.2A4.8 4.8 0 0 1 8.3 13h1.4a4.8 4.8 0 0 1 4.8 4.8V19H3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 5.3a3 3 0 0 1 0 5.8M17 13.2a4.6 4.6 0 0 1 3.5 4.5V19h-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+					<span><strong>W E N T A Discord</strong><small>Ekibini bul, topluluğa katıl.</small></span>
+				</button>
+			</div>
+			<p class="empty-state" id="empty-state">Bu aramayla eşleşen bir başlık bulamadım. Başka bir kelime deneyebilirsin.</p>
+		</section>
+
+		<section class="content-section" id="deneyim" aria-labelledby="experience-title">
+			<div class="content-heading">
+				<span class="eyebrow">W E N T A PVP</span>
+				<h2 id="experience-title">Takım ol, hedefe odaklan, mücadeleye gir.</h2>
+				<p>W E N T A, rekabetçi PvP ve ekip koordinasyonunu öne çıkaran bir GUN RP sunucusudur.</p>
+			</div>
+			<div class="playstyles">
+				<article class="playstyle">
+					<span class="number">01 / ÇATIŞMA</span>
+					<h3>Reflekslerini geliştir</h3>
+					<p>Hızlı karar al, nişanını kontrol et ve her karşılaşmada daha iyi oyna.</p>
+				</article>
+				<article class="playstyle">
+					<span class="number">02 / TAKIM</span>
+					<h3>Ekibinle hareket et</h3>
+					<p>Takım iletişimini güçlü tut, birlikte pozisyon al ve mücadeleyi paylaş.</p>
+				</article>
+				<article class="playstyle">
+					<span class="number">03 / REKABET</span>
+					<h3>Adil oyna</h3>
+					<p>Kurallara uy, rakibine saygı göster ve rekabeti keyifli tut.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="content-section" id="ozellikler" aria-labelledby="systems-title">
+			<div class="content-heading">
+				<span class="eyebrow">SUNUCU ÖZELLİKLERİ</span>
+				<h2 id="systems-title">PvP için hazırlanmış altyapı.</h2>
+				<p>Çatışmanın temposunu korumak ve oyuna odaklanmanı sağlamak için W E N T A'nın öne çıkan sistemleri.</p>
+			</div>
+			<div class="system-grid">
+				<article class="system-card">
+					<span class="system-tag">PERFORMANS</span>
+					<h3>Gelişmiş optimize scriptler</h3>
+					<p>Optimize edilmiş script altyapısıyla gereksiz yükü azaltıp daha akıcı bir oyun deneyimini hedefliyoruz.</p>
+				</article>
+				<article class="system-card">
+					<span class="system-tag">GUNPLAY</span>
+					<h3>Kesintisiz PvP temposu</h3>
+					<p>Hızlı karşılaşmalar ve ekip koordinasyonu için tasarlanmış, mücadele odaklı sunucu deneyimi.</p>
+				</article>
+				<article class="system-card">
+					<span class="system-tag">TOPLULUK</span>
+					<h3>Birlikte daha güçlüsün</h3>
+					<p>Discord'a katıl, ekibini bul ve W E N T A duyurularını toplulukla birlikte takip et.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="steps-section" id="baslangic" aria-labelledby="steps-title">
+			<div class="content-heading">
+				<span class="eyebrow">SUNUCUYA KATIL</span>
+				<h2 id="steps-title">Oyuna giriş için dört adım.</h2>
+				<p>Gerekli hazırlıkları tamamla, Discord üzerinden güncel bağlantı ve duyurulara ulaş.</p>
+			</div>
+			<ol class="steps-list">
+				<li><span class="step-number">01</span><span><strong>GTA V ve FiveM'i hazırla</strong>Oyunun ve FiveM kurulumunun güncel olduğundan emin ol.</span></li>
+				<li><span class="step-number">02</span><span><strong>Discord'a katıl</strong>Duyurulara ve güncel sunucu bağlantı bilgilerine topluluk kanalından ulaş.</span></li>
+				<li><span class="step-number">03</span><span><strong>PvP kurallarını oku</strong>Sunucu kurallarını öğren ve adil oyun için kurallara uy.</span></li>
+				<li><span class="step-number">04</span><span><strong>Ekibini topla, oyuna gir</strong>Bağlantı adımlarını takip et ve W E N T A'da mücadeleye başla.</span></li>
+			</ol>
+		</section>
+
+		<section class="content-section" id="sss" aria-labelledby="faq-title">
+			<div class="content-heading">
+				<span class="eyebrow">MERAK EDİLENLER</span>
+				<h2 id="faq-title">Sık sorulan sorular</h2>
+				<p>W E N T A GUN RP hakkında merak edilenler.</p>
+			</div>
+			<div class="faq-list">
+				<details>
+					<summary>W E N T A nasıl bir sunucu?</summary>
+					<p>W E N T A, PvP ve takım oyununa odaklanan bir FiveM GUN RP sunucusudur.</p>
+				</details>
+				<details>
+					<summary>Sunucuya nasıl katılabilirim?</summary>
+					<p>GTA V ve FiveM kurulumunu tamamla, ardından güncel bağlantı bilgileri için W E N T A Discord sunucusuna katıl.</p>
+				</details>
+				<details>
+					<summary>Sunucuda optimize scriptler var mı?</summary>
+					<p>Evet. Sunucuda akıcı PvP deneyimini desteklemek için optimize scriptler kullanılıyor.</p>
+				</details>
+				<details>
+					<summary>Discord'a nereden katılabilirim?</summary>
+					<p>Sayfanın üstündeki veya altındaki Discord düğmesini kullanarak W E N T A topluluğuna ulaşabilirsin.</p>
+				</details>
+			</div>
+		</section>
+
+		<section class="bottom-cta" aria-label="W E N T A topluluğu">
+			<div>
+				<h2>Ekibini W E N T A'da topla.</h2>
+				<p>Topluluğa katıl, güncel duyuruları gör ve PvP'ye hazırlan.</p>
+			</div>
+			<a href="https://discord.gg/ZT8fQEBBg" target="_blank" rel="noopener noreferrer">Discord'a katıl</a>
+		</section>
+	</main>
+
+	<footer>
+		<span><strong>W E N T A</strong> · Gun RP</span>
+		<a href="https://discord.gg/ZT8fQEBBg" target="_blank" rel="noopener noreferrer">Discord topluluğu</a>
+	</footer>
+
+	<div class="dialog-backdrop" id="dialog-backdrop" role="presentation">
+		<section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+			<div class="dialog-top">
+				<h2 id="dialog-title"></h2>
+				<button class="close-dialog" type="button" aria-label="Pencereyi kapat">×</button>
+			</div>
+			<p id="dialog-copy"></p>
+			<button class="dialog-action" type="button">Anladım</button>
+		</section>
+	</div>
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+	<script>
+		const dialogContent = {
+			start: {
+				title: "Oyuna katıl",
+				copy: "GTA V ve FiveM kurulumunu tamamla, PvP kurallarını incele ve Discord üzerinden güncel sunucu bağlantı bilgilerini takip et."
+			},
+			rules: {
+				title: "PvP kuralları",
+				copy: "Adil rekabeti koru, hile kullanma ve diğer oyunculara saygılı davran. Güncel sunucu kuralları için W E N T A Discord topluluğunu ziyaret et."
+			},
+			community: {
+				title: "Topluluğa katıl",
+				copy: "W E N T A Discord sunucusuna katılarak duyuruları ve güncel bağlantı bilgilerini takip edebilirsin."
+			}
+		};
+		const backdrop = document.querySelector("#dialog-backdrop");
+		const input = document.querySelector("#site-search");
+		const cards = [...document.querySelectorAll(".info-link")];
+		const emptyState = document.querySelector("#empty-state");
+		let previousFocus;
+
+		function openDialog(key) {
+			const content = dialogContent[key];
+			if (!content) return;
+			previousFocus = document.activeElement;
+			document.querySelector("#dialog-title").textContent = content.title;
+			document.querySelector("#dialog-copy").textContent = content.copy;
+			backdrop.classList.add("open");
+			document.querySelector(".close-dialog").focus();
+		}
+
+		function closeDialog() {
+			backdrop.classList.remove("open");
+			if (previousFocus) previousFocus.focus();
+		}
+
+		function searchCards(query) {
+			const term = query.trim().toLocaleLowerCase("tr");
+			let visibleCount = 0;
+			for (const card of cards) {
+				const searchable = `${card.textContent} ${card.dataset.keywords}`.toLocaleLowerCase("tr");
+				const visible = !term || searchable.includes(term);
+				card.hidden = !visible;
+				if (visible) visibleCount++;
+			}
+			emptyState.style.display = visibleCount ? "none" : "block";
+			document.querySelector("#kesfet").scrollIntoView({ behavior: "smooth", block: "start" });
+		}
+
+		document.querySelector("#search-form").addEventListener("submit", (event) => {
+			event.preventDefault();
+			searchCards(input.value);
+		});
+		document.querySelectorAll("[data-search]").forEach((button) => {
+			button.addEventListener("click", () => {
+				input.value = button.dataset.search;
+				searchCards(input.value);
+			});
+		});
+		document.querySelectorAll("[data-dialog]").forEach((button) => {
+			button.addEventListener("click", (event) => {
+				event.preventDefault();
+				openDialog(button.dataset.dialog);
+			});
+		});
+		document.querySelectorAll(".close-dialog, .dialog-action").forEach((button) => {
+			button.addEventListener("click", closeDialog);
+		});
+		backdrop.addEventListener("click", (event) => {
+			if (event.target === backdrop) closeDialog();
+		});
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && backdrop.classList.contains("open")) closeDialog();
+		});
+	</script>
+</body>
+</html>
