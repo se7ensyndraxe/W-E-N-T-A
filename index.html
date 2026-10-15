@@ -174,6 +174,22 @@
 			transition: color .2s ease, border-color .2s ease, background .2s ease;
 		}
 		.quick-links button:hover { color: var(--green-dark); background: white; border-color: #b8c9b9; }
+		.search-message {
+			margin: 15px 0 0;
+			padding: 15px 18px;
+			color: var(--ink);
+			background: rgba(17, 29, 42, .78);
+			border: 1px solid var(--glass-border);
+			border-left: 3px solid var(--ice);
+			border-radius: 12px;
+			box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+			font-size: 13px;
+			line-height: 1.8;
+			white-space: pre-line;
+			animation: arrive .35s ease both;
+		}
+		.search-message[hidden] { display: none; }
+		.womens-mode .search-message { background: rgba(38, 21, 30, .9); border-color: rgba(245, 182, 207, .2); border-left-color: #f3a8c7; }
 
 		.discover {
 			padding: 0 0 72px;
@@ -997,12 +1013,206 @@
 		@media (prefers-reduced-motion: reduce) {
 			.snowfall { display: none; }
 		}
+		.brand-actions { display: flex; align-items: center; gap: 15px; }
+		.womens-toggle {
+			padding: 9px 13px;
+			color: #f5d7e3;
+			background: #151014;
+			border: 1px solid rgba(246, 167, 199, .45);
+			border-radius: 12px;
+			cursor: pointer;
+			font-size: 11px;
+			font-weight: 700;
+			white-space: nowrap;
+			transition: color .2s ease, background .2s ease, border-color .2s ease;
+		}
+		.womens-toggle:hover, .womens-toggle[aria-pressed="true"] { color: #160d12; background: #f3a8c7; border-color: #ffd5e5; }
+		.music-panel {
+			position: fixed;
+			z-index: 4;
+			top: 84px;
+			left: 18px;
+			width: min(270px, calc(100vw - 36px));
+			padding: 10px;
+			color: #e9f5ff;
+			background: rgba(11, 19, 30, .94);
+			border: 1px solid rgba(183, 220, 248, .18);
+			border-radius: 15px;
+			box-shadow: 0 12px 35px rgba(0, 0, 0, .34);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+		}
+		.music-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+		.music-heading strong { font: 700 12px var(--font-display); }
+		.music-expand, .music-control {
+			min-width: 34px;
+			min-height: 34px;
+			padding: 0 9px;
+			color: #dff5ff;
+			background: rgba(102, 190, 230, .12);
+			border: 1px solid rgba(139, 216, 250, .2);
+			border-radius: 10px;
+			cursor: pointer;
+			font-size: 12px;
+		}
+		.music-expand { font-size: 16px; }
+		.music-body { display: none; padding-top: 9px; }
+		.music-panel.is-open .music-body { display: block; }
+		.music-frame { display: none; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 9px; background: #05070a; }
+		.music-panel.has-started .music-frame { display: block; }
+		.music-frame > div, .music-frame iframe { width: 100%; height: 100%; }
+		.music-controls { margin-top: 8px; display: flex; align-items: center; gap: 7px; }
+		.music-controls label { display: flex; align-items: center; gap: 5px; color: #a7b8c9; font-size: 10px; }
+		.music-controls input { width: 70px; accent-color: #89dfff; }
+		.music-track-title { margin-top: 9px; color: #dbeafa; font-size: 11px; font-weight: 700; line-height: 1.45; }
+		.music-status { min-width: 0; flex: 1; overflow: hidden; color: #9aabbe; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+		body.womens-mode {
+			color-scheme: dark;
+			--paper: #100b0e;
+			--ink: #fff0f5;
+			--muted: #c7aab6;
+			--green: #efa0bd;
+			--green-dark: #e77fa8;
+			--line: rgba(245, 182, 207, .17);
+			--white: #1b1117;
+			--ice: #f3a8c7;
+			--ice-bright: #ffd4e4;
+			--glass: rgba(26, 15, 22, .78);
+			--glass-border: rgba(246, 183, 208, .2);
+			background:
+				radial-gradient(ellipse at 50% -12%, rgba(207, 91, 139, .2), transparent 48%),
+				radial-gradient(ellipse at 0% 44%, rgba(142, 48, 91, .13), transparent 36%),
+				radial-gradient(ellipse at 100% 76%, rgba(174, 66, 111, .11), transparent 35%),
+				#100b0e;
+		}
+		body.womens-mode::before { opacity: .12; background-image: linear-gradient(rgba(246, 183, 208, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(246, 183, 208, .09) 1px, transparent 1px); }
+		.womens-mode ::selection { color: #1a0d13; background: #f3a8c7; }
+		.womens-mode .topbar { border-bottom-color: rgba(246, 183, 208, .15); background: rgba(16, 11, 14, .82); }
+		.womens-mode .mini-brand { color: #ffe6ef; }
+		.womens-mode .mini-brand img { border-color: rgba(246, 167, 199, .55); box-shadow: 0 0 20px rgba(230, 119, 164, .2); }
+		.womens-mode .nav-links .join-link,
+		.womens-mode .search-wrap button,
+		.womens-mode .bottom-cta a,
+		.womens-mode .dialog-action {
+			color: #1d0d14;
+			background: linear-gradient(135deg, #ffd3e3, #eb8fb2 52%, #f5a9c6);
+			border-color: rgba(255, 225, 237, .65);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65), 0 7px 22px rgba(208, 87, 137, .2), 0 2px 0 rgba(117, 42, 75, .5);
+		}
+		.womens-mode .hero::before { background: radial-gradient(ellipse, rgba(223, 111, 157, .2), rgba(139, 54, 92, .08) 42%, transparent 70%); }
+		.womens-mode .wordmark { color: #ffd3e3; background: linear-gradient(180deg, #fff2f7 4%, #f5b2cc 48%, #d96f9b 100%); background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 24px rgba(231, 127, 168, .25)); }
+		.womens-mode .eyebrow { color: #f4b4cc; }
+		.womens-mode .eyebrow::before, .womens-mode .eyebrow::after { background: rgba(235, 145, 179, .6); }
+		.womens-mode h1 { text-shadow: 0 5px 35px rgba(226, 118, 160, .1); }
+		.womens-mode .intro, .womens-mode .content-heading p, .womens-mode .playstyle p { color: #c7aab6; }
+		.womens-mode .search-wrap { background: rgba(26, 15, 22, .82); border-color: var(--glass-border); box-shadow: inset 0 1px 0 rgba(255, 239, 246, .05), 0 16px 45px rgba(0, 0, 0, .25); }
+		.womens-mode .search-wrap:focus-within { border-color: rgba(243, 168, 199, .65); box-shadow: 0 0 0 4px rgba(230, 119, 164, .1), 0 18px 48px rgba(0, 0, 0, .28); }
+		.womens-mode .search-wrap input { color: #fff0f5; }
+		.womens-mode .quick-links button { color: #e5cbd5; background: rgba(31, 18, 26, .72); border-color: rgba(245, 182, 207, .16); }
+		.womens-mode .quick-links button:hover { color: #ffe5ef; background: rgba(114, 48, 77, .45); border-color: rgba(243, 168, 199, .4); }
+		.womens-mode .feature { border-color: rgba(246, 183, 208, .2); background-color: #26121c; }
+		.womens-mode .feature::after { background: linear-gradient(90deg, rgba(19, 8, 13, .86), rgba(28, 10, 18, .28) 88%), linear-gradient(0deg, rgba(16, 7, 11, .54), transparent 70%), linear-gradient(135deg, rgba(202, 81, 132, .2), transparent 54%); }
+		.womens-mode .feature-copy .label, .womens-mode .content-heading .eyebrow { color: #ffc4da; }
+		.womens-mode .info-link { background: linear-gradient(145deg, rgba(38, 21, 30, .88), rgba(20, 12, 17, .84)); border-color: rgba(245, 182, 207, .14); box-shadow: 7px 7px 18px rgba(0, 0, 0, .24), -5px -5px 15px rgba(169, 91, 122, .045), inset 0 1px 0 rgba(255, 242, 247, .05); }
+		.womens-mode .info-link:hover { background: linear-gradient(145deg, rgba(61, 30, 45, .9), rgba(31, 15, 23, .88)); border-color: rgba(243, 168, 199, .34); }
+		.womens-mode .info-icon { color: #ffd1e2; background: linear-gradient(145deg, #512a3d, #291521); border-color: rgba(246, 183, 208, .16); }
+		.womens-mode .info-link strong { color: #fff0f5; }
+		.womens-mode .info-link small, .womens-mode .section-heading span { color: #c3a6b2; }
+		.womens-mode .playstyle, .womens-mode .playstyle + .playstyle { background: linear-gradient(145deg, rgba(36, 20, 29, .9), rgba(18, 11, 16, .88)); border-color: rgba(245, 182, 207, .14); box-shadow: 7px 7px 18px rgba(0, 0, 0, .2), -5px -5px 14px rgba(169, 91, 122, .04), inset 0 1px 0 rgba(255, 242, 247, .05); }
+		.womens-mode .playstyle .number, .womens-mode .step-number { color: #f1a5c1; }
+		.womens-mode .steps-section { background: linear-gradient(135deg, rgba(49, 25, 38, .9), rgba(19, 12, 17, .92)); border-color: rgba(245, 182, 207, .16); box-shadow: 10px 12px 32px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255, 242, 247, .05); }
+		.womens-mode .steps-section::after { background: radial-gradient(circle, rgba(219, 106, 153, .14), transparent 70%); }
+		.womens-mode .steps-list li, .womens-mode .code-list li { border-bottom-color: rgba(245, 182, 207, .13); }
+		.womens-mode .steps-list span:last-child, .womens-mode .faq-list details p, .womens-mode .code-list span:last-child { color: #c5aab6; }
+		.womens-mode .faq-list summary:hover { color: #ffd4e4; }
+		.womens-mode .faq-list summary::after { color: #f3a8c7; }
+		.womens-mode .bottom-cta { background: linear-gradient(115deg, rgba(55, 27, 41, .75), rgba(21, 13, 18, .86)); border-color: rgba(245, 182, 207, .17); }
+		.womens-mode .bottom-cta::before { background: radial-gradient(circle, rgba(230, 119, 164, .12), transparent 72%); }
+		.womens-mode .bottom-cta p { color: #c7aab6; }
+		.womens-mode .system-card { background: linear-gradient(145deg, rgba(38, 21, 30, .9), rgba(19, 12, 17, .9)); border-color: rgba(245, 182, 207, .14); box-shadow: 7px 7px 18px rgba(0, 0, 0, .22), -5px -5px 14px rgba(169, 91, 122, .045), inset 0 1px 0 rgba(255, 242, 247, .05); }
+		.womens-mode .system-card:hover { border-color: rgba(243, 168, 199, .35); }
+		.womens-mode .system-card .system-tag { color: #f1a5c1; }
+		.womens-mode .system-card p { color: #c7aab6; }
+		.womens-mode .game-modes { background: radial-gradient(ellipse at 100% 0%, rgba(198, 83, 132, .15), transparent 44%), linear-gradient(145deg, rgba(34, 19, 27, .9), rgba(16, 10, 15, .94)); border-color: rgba(245, 182, 207, .15); }
+		.womens-mode .mode-card { background: rgba(42, 23, 33, .76); border-color: rgba(245, 182, 207, .14); }
+		.womens-mode .mode-index { color: #ffd1e2; background: linear-gradient(145deg, #512a3d, #291521); border-color: rgba(246, 183, 208, .16); }
+		.womens-mode .mode-card p { color: #c7aab6; }
+		.womens-mode .team-code { background: linear-gradient(135deg, rgba(37, 21, 29, .82), rgba(18, 11, 16, .9)); border-color: rgba(245, 182, 207, .14); }
+		.womens-mode .code-mark { color: #ffd1e2; background: rgba(203, 100, 145, .14); border-color: rgba(243, 168, 199, .2); }
+		.womens-mode .community-note { color: #e6c6d3; background: rgba(159, 66, 108, .13); border-color: rgba(243, 168, 199, .16); }
+		.womens-mode .community-note span { color: #f3a8c7; }
+		.womens-mode footer { color: #b99eaa; border-top-color: rgba(245, 182, 207, .14); background: rgba(9, 6, 8, .55); }
+		.womens-mode footer strong { color: #ffd4e4; }
+		.womens-mode .dialog-backdrop { background: rgba(12, 5, 9, .72); }
+		.womens-mode .dialog { background: linear-gradient(145deg, rgba(43, 24, 34, .97), rgba(18, 11, 16, .98)); border-color: rgba(245, 182, 207, .2); box-shadow: 10px 14px 45px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 242, 247, .07); }
+		.womens-mode .dialog p { color: #d1b4c0; }
+		.womens-mode .close-dialog { color: #f0d1dc; background: linear-gradient(145deg, #512a3d, #291521); border-color: rgba(246, 183, 208, .15); }
+		.womens-mode .toast { color: #fff0f5; background: rgba(65, 27, 45, .94); border-color: rgba(243, 168, 199, .23); }
+		.womens-mode :where(a, button, summary, input, select):focus-visible { outline-color: #ffd4e4; }
+		.womens-mode .music-panel { color: #fff0f5; background: rgba(20, 11, 16, .96); border-color: rgba(245, 182, 207, .24); }
+		.womens-mode .music-control, .womens-mode .music-expand { color: #ffe7f0; background: rgba(198, 83, 132, .17); border-color: rgba(243, 168, 199, .24); }
+		.womens-mode .music-controls label, .womens-mode .music-status { color: #c6a9b5; }
+		.womens-mode .music-controls input { accent-color: #f3a8c7; }
+		.womens-mode .info-link,
+		.womens-mode .playstyle,
+		.womens-mode .mode-card,
+		.womens-mode .system-card,
+		.womens-mode .feature,
+		.womens-mode .hero-panel {
+			position: relative;
+			animation: card-arrive .78s cubic-bezier(.16, 1, .3, 1) backwards;
+			transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s ease, border-color .28s ease;
+		}
+		.womens-mode .feature::before,
+		.womens-mode .info-link:nth-child(odd)::after,
+		.womens-mode .playstyle:nth-child(even)::after,
+		.womens-mode .mode-card:nth-child(odd)::after,
+		.womens-mode .system-card:nth-child(even)::after {
+			position: absolute;
+			z-index: 2;
+			top: 12px;
+			right: 13px;
+			content: "🎀";
+			font-size: 23px;
+			line-height: 1;
+			filter: drop-shadow(0 3px 7px rgba(231, 111, 159, .48));
+			pointer-events: none;
+			animation: bow-sway 2.6s ease-in-out infinite;
+		}
+		.womens-mode .feature::before { top: 20px; right: 24px; font-size: 34px; }
+		.womens-mode .info-link:nth-child(odd)::after { top: 9px; right: 11px; font-size: 20px; }
+		@keyframes bow-sway { 0%, 100% { transform: rotate(-12deg) scale(.96); } 50% { transform: rotate(12deg) scale(1.08); } }
+		.womens-mode .info-link:nth-child(2), .womens-mode .playstyle:nth-child(2), .womens-mode .mode-card:nth-child(2), .womens-mode .system-card:nth-child(2) { animation-delay: .1s; }
+		.womens-mode .info-link:nth-child(3), .womens-mode .playstyle:nth-child(3), .womens-mode .mode-card:nth-child(3), .womens-mode .system-card:nth-child(3) { animation-delay: .2s; }
+		.womens-mode .info-link:hover, .womens-mode .playstyle:hover, .womens-mode .mode-card:hover, .womens-mode .system-card:hover, .womens-mode .feature:hover, .womens-mode .hero-panel:hover {
+			z-index: 1;
+			transform: translateY(-9px) scale(1.025) rotate(-.35deg);
+			border-color: rgba(255, 190, 216, .62);
+			box-shadow: 0 20px 38px rgba(0, 0, 0, .32), 0 0 28px rgba(231, 111, 159, .2), inset 0 1px 0 rgba(255, 244, 249, .14);
+		}
+		@keyframes card-arrive {
+			0% { opacity: 0; transform: translateY(36px) scale(.91) rotateX(12deg); filter: blur(5px); }
+			68% { opacity: 1; transform: translateY(-5px) scale(1.015) rotateX(0); filter: blur(0); }
+			100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.womens-mode .info-link, .womens-mode .playstyle, .womens-mode .mode-card, .womens-mode .system-card, .womens-mode .feature, .womens-mode .hero-panel { animation: none; transition: none; }
+			.womens-mode .feature::before, .womens-mode .info-link::after, .womens-mode .playstyle::after, .womens-mode .mode-card::after, .womens-mode .system-card::after { animation: none; }
+		}
+		@media (max-width: 640px) {
+			.brand-actions { gap: 8px; }
+			.womens-toggle { padding: 8px 9px; font-size: 10px; }
+			.music-panel { top: 72px; left: 10px; width: min(250px, calc(100vw - 20px)); }
+		}
 	</style>
 </head>
 <body>
 	<canvas class="snowfall" id="snowfall" aria-hidden="true"></canvas>
 	<header class="topbar">
-		<a class="mini-brand" href="#top" aria-label="W E N T A ana sayfa"><img src="https://i.ibb.co/kswK6MHZ/wenta.png" alt="W E N T A sunucu logosu">W E N T A</a>
+		<div class="brand-actions">
+			<a class="mini-brand" href="#top" aria-label="W E N T A ana sayfa"><img src="https://i.ibb.co/kswK6MHZ/wenta.png" alt="W E N T A sunucu logosu">W E N T A</a>
+			<button class="womens-toggle" id="womens-toggle" type="button" aria-pressed="false">Kadınlara özel</button>
+		</div>
 		<nav class="nav-links" aria-label="Ana menü">
 			<a href="#ozellikler">Özellikler</a>
 			<a href="#oyun-tarzlari">Oyun tarzları</a>
@@ -1011,6 +1221,22 @@
 			<a class="join-link" href="https://discord.gg/ZT8fQEBBg" target="_blank" rel="noopener noreferrer">Discord'a katıl</a>
 		</nav>
 	</header>
+	<aside class="music-panel" id="music-panel" aria-label="Müzik çalar">
+		<div class="music-heading">
+			<strong>♫ W E N T A Müzik</strong>
+			<button class="music-expand" id="music-expand" type="button" aria-expanded="false" aria-label="Müzik listesini aç">+</button>
+		</div>
+		<div class="music-body">
+			<div class="music-frame"><div id="youtube-player"></div></div>
+			<div class="music-track-title">I Got Summer On My Mind (Still Dre Remix)</div>
+			<div class="music-controls">
+				<button class="music-control" id="music-toggle" type="button" aria-label="Müziği oynat">▶</button>
+				<button class="music-control" id="music-mute" type="button" aria-label="Sesi kapat">♫</button>
+				<label for="music-volume">Ses <input id="music-volume" type="range" min="0" max="100" value="50"></label>
+				<span class="music-status" id="music-status" aria-live="polite">Hazır</span>
+			</div>
+		</div>
+	</aside>
 
 	<main id="top">
 		<section class="hero" aria-labelledby="page-title">
@@ -1031,6 +1257,7 @@
 						<button type="button" data-search="pvp">PvP kuralları</button>
 						<button type="button" data-search="discord">Discord</button>
 					</div>
+					<p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
 				</div>
 				<aside class="hero-panel" aria-label="W E N T A oyun deneyimi">
 					<div class="hero-panel-top">
@@ -1186,8 +1413,8 @@
 			</div>
 			<div class="faq-list">
 				<details>
-					<summary>W E N T A nasıl bir sunucu?</summary>
-					<p>W E N T A, PvP ve takım oyununa odaklanan bir FiveM GUN RP sunucusudur.</p>
+					<summary>W E N T A</summary>
+					<p>Leader solvian | Zahar<br>Developer Beqeend<br>Site developer Se7enSyndraxe<br>ᴮʸ ᴸᵒˢᵗ ᴰʳᵉᵃᵐˢ</p>
 				</details>
 				<details>
 					<summary>Sunucuya nasıl katılabilirim?</summary>
@@ -1231,6 +1458,76 @@
 	<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 	<script>
+		const musicTrack = { id: "89LOsf8pDhY", title: "I Got Summer On My Mind (Still Dre Remix)" };
+		let musicPlayer;
+		let musicIsPlaying = false;
+		let musicIsMuted = false;
+		let musicPlayerReady = false;
+		let musicWantsPlayback = false;
+		const musicPanel = document.querySelector("#music-panel");
+		const musicStatus = document.querySelector("#music-status");
+
+		window.onYouTubeIframeAPIReady = () => {
+			musicPlayer = new YT.Player("youtube-player", {
+				width: "240",
+				height: "135",
+				videoId: musicTrack.id,
+				playerVars: { playsinline: 1, rel: 0 },
+				events: {
+					onReady: (event) => {
+						musicPlayerReady = true;
+						event.target.setVolume(Number(document.querySelector("#music-volume").value));
+						if (musicWantsPlayback) event.target.playVideo();
+					},
+					onStateChange: (event) => {
+						musicIsPlaying = event.data === YT.PlayerState.PLAYING;
+						document.querySelector("#music-toggle").textContent = musicIsPlaying ? "Ⅱ" : "▶";
+						document.querySelector("#music-toggle").setAttribute("aria-label", musicIsPlaying ? "Müziği duraklat" : "Müziği oynat");
+						musicStatus.textContent = musicIsPlaying ? "Çalıyor" : "Duraklatıldı";
+					}
+				}
+			});
+		};
+		const youtubeApi = document.createElement("script");
+		youtubeApi.src = "https://www.youtube.com/iframe_api";
+		document.head.append(youtubeApi);
+
+		document.querySelector("#womens-toggle").addEventListener("click", (event) => {
+			const enabled = document.body.classList.toggle("womens-mode");
+			event.currentTarget.setAttribute("aria-pressed", String(enabled));
+		});
+		document.querySelector("#music-expand").addEventListener("click", (event) => {
+			const expanded = musicPanel.classList.toggle("is-open");
+			event.currentTarget.textContent = expanded ? "−" : "+";
+			event.currentTarget.setAttribute("aria-expanded", String(expanded));
+			event.currentTarget.setAttribute("aria-label", expanded ? "Müzik listesini kapat" : "Müzik listesini aç");
+		});
+		document.querySelector("#music-toggle").addEventListener("click", () => {
+			musicPanel.classList.add("is-open", "has-started");
+			document.querySelector("#music-expand").textContent = "−";
+			document.querySelector("#music-expand").setAttribute("aria-expanded", "true");
+			musicWantsPlayback = !musicIsPlaying;
+			if (!musicPlayerReady) {
+				musicStatus.textContent = "Yükleniyor...";
+				return;
+			}
+			if (musicIsPlaying) musicPlayer.pauseVideo();
+			else musicPlayer.playVideo();
+		});
+		document.querySelector("#music-mute").addEventListener("click", (event) => {
+			musicIsMuted = !musicIsMuted;
+			if (musicPlayerReady) musicIsMuted ? musicPlayer.mute() : musicPlayer.unMute();
+			event.currentTarget.textContent = musicIsMuted ? "×" : "♫";
+			event.currentTarget.setAttribute("aria-label", musicIsMuted ? "Sesi aç" : "Sesi kapat");
+		});
+		document.querySelector("#music-volume").addEventListener("input", (event) => {
+			if (musicPlayerReady) musicPlayer.setVolume(Number(event.currentTarget.value));
+			if (Number(event.currentTarget.value) > 0 && musicIsMuted) {
+				musicIsMuted = false;
+				musicPlayerReady && musicPlayer.unMute();
+				document.querySelector("#music-mute").textContent = "♫";
+			}
+		});
 		const dialogContent = {
 			start: {
 				title: "Oyuna katıl",
@@ -1249,6 +1546,11 @@
 		const input = document.querySelector("#site-search");
 		const cards = [...document.querySelectorAll(".info-link")];
 		const emptyState = document.querySelector("#empty-state");
+		const searchMessage = document.querySelector("#search-message");
+		const specialResponses = {
+			solvian: "Karanlığın içinde yanan bir uyan,\nSınırları aşan gizli bir unvan,\nZihninde yankılanır tek bir an: Solvian.",
+			zahar: "Sırrı saklar gecedeki her sehar,\nYıkılır surlar, silinir efkar.\nKülün altından doğan o kıvılcım;\nYalnızca tek bir ad fısıldar: Zahar."
+		};
 		let previousFocus;
 
 		function startSnowfall() {
@@ -1354,6 +1656,15 @@
 
 		function searchCards(query) {
 			const term = query.trim().toLocaleLowerCase("tr");
+			const response = specialResponses[term];
+			if (response) {
+				cards.forEach((card) => { card.hidden = false; });
+				emptyState.style.display = "none";
+				searchMessage.textContent = response;
+				searchMessage.hidden = false;
+				return;
+			}
+			searchMessage.hidden = true;
 			let visibleCount = 0;
 			for (const card of cards) {
 				const searchable = `${card.textContent} ${card.dataset.keywords}`.toLocaleLowerCase("tr");
